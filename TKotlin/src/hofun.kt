@@ -19,6 +19,14 @@ fun main(){
 
     familia.paraCadaString { it.last().toString() }.forEach { println(it) }
 
+    familia.paraCada(::primeiraLetra).forEach{
+        println(it)
+    }
+
+    val listInt : List<Int> = (1..10).toList()
+    val listInc : List<Int> = listInt.paraCada(::incrementa)
+    listInc.forEach { println(it) }
+
 }
 
 fun processaText(s1:String, s2:String, processa:(String, String) -> String):String{
@@ -43,3 +51,13 @@ fun List<String>.paraCadaString(funcao:(String) -> String): List<String>{
 }
 
 fun primeiraLetra(s:String) : String = s.first().toString()
+
+fun <T> List<T>.paraCada(funcao: (T) -> T) : List<T>{
+    val returnList : MutableList<T> = mutableListOf()
+    this.forEach { returnList.add(funcao(it)) }
+    return returnList
+}
+
+fun incrementa(i:Int) = i +1
+
+fun dobre(f: Float) = 2 * f
